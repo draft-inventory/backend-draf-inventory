@@ -23,3 +23,6 @@
 
 #Enviroment
 .venv/
+
+#cache
+__pycache__/

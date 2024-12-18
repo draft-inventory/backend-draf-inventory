@@ -1,7 +1,7 @@
-from common.db import db
-from common.models.base import MVCModel
+from common.db.db import db
 
-class Product(MVCModel):
+
+class Product(db.Model):
     __tablename__ = 'products'
 
     id = db.Column(db.Integer, primary_key=True)

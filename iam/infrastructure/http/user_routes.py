@@ -6,12 +6,18 @@ from ...infrastructure.http.swagger.user_swagger import register_user_swagger, l
 
 user_urls = Blueprint('user_blueprint', __name__)
 
+
 @user_urls.route('/register', methods=['POST'])
 @swag_from(register_user_swagger)
 def register():
     try:
         # Validar y cargar datos del esquema
         data = user_register_schema.load(request.get_json())
+
+        # Limpiar espacios al inicio y al final de cada campo
+        data = {key: value.strip() if isinstance(value, str)
+                else value for key, value in data.items()}
+
         user = UserService.register_user(
             name=data['name'],
             last_name=data['last_name'],
@@ -25,12 +31,18 @@ def register():
     except Exception as e:
         return jsonify({"error": "Error en el servidor"}), 500
 
+
 @user_urls.route('/login', methods=['POST'])
 @swag_from(login_user_swagger)
 def login():
     try:
         # Validar y cargar datos del esquema
         data = user_login_schema.load(request.get_json())
+
+        # Limpiar espacios al inicio y al final de cada campo
+        data = {key: value.strip() if isinstance(value, str)
+                else value for key, value in data.items()}
+
         user = UserService.login_user(
             user_name=data['user_name'],
             password=data['password']

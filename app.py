@@ -8,6 +8,7 @@ from common.db.db import db, ma
 
 # Routes
 from inventory.infrastructure.http.category_routes import category_urls
+from iam.infrastructure.http.user_routes import user_urls
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -29,3 +30,4 @@ swagger = Swagger(app)
 
 # Routes
 app.register_blueprint(category_urls,url_prefix = '/categories')
+app.register_blueprint(user_urls,url_prefix = '/users')

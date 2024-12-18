@@ -1,5 +1,6 @@
-from domain.models.category import Category
-from common.db import db
+from ...domain.models.category import Category
+from common.db.db import db
+
 
 class CategoryRepository():
     @staticmethod
@@ -8,4 +9,3 @@ class CategoryRepository():
         db.session.add(new_category)
         db.session.commit()
         return new_category
-        

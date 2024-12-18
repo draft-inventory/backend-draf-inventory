@@ -2,6 +2,7 @@ import sys
 import os
 
 from flask import Flask
+from flasgger import Swagger
 from config.config import Config
 from common.db.db import db, ma
 
@@ -18,6 +19,13 @@ ma.init_app(app)
 # Add the path to the current file to the system path
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
+
+# Configuration Swagger
+app.config['SWAGGER'] = {
+    'title': 'Draft Inventory API',
+    'uiversion': 3
+}
+swagger = Swagger(app)
 
 # Routes
 app.register_blueprint(category_urls,url_prefix = '/categories')

@@ -15,7 +15,7 @@ create_category_swagger = {
                 "properties": {
                     "name": {
                         "type": "string",
-                        "description": "Category name"
+                        "description": "Category name. Must be 2-15 characters, no numbers, and only valid Latin characters."
                     }
                 },
                 "required": ["name"]

@@ -1,3 +1,5 @@
+import re
+
 from flask import Blueprint, request, jsonify
 from ...application.services.category_service import CategoryService
 from ...domain.schemas.category_schema import category_schema
@@ -9,12 +11,23 @@ from ...infrastructure.http.swagger.category_swagger import create_category_swag
 category_urls = Blueprint('category_blueprint', __name__)
 
 
+# Regex para nombres válidos
+VALID_NAME_REGEX = r"^[A-Za-zÁÉÍÓÚÑáéíóúñ ]{2,15}$"
+
 @category_urls.route('/create', methods=['POST'])
 @swag_from(create_category_swagger)
 def create_category():
     try:
         data = request.get_json()
         name = data.get('name')
+
+        # Validate name
+        if not name or not re.match(VALID_NAME_REGEX, name):
+            return jsonify(
+                {
+                    "error": "Invalid name. Name must be 2-15 characters, no numbers, and only valid Latin characters."
+                }
+            ), 400
 
         # Create Category
         new_category = CategoryService.create_category(name)

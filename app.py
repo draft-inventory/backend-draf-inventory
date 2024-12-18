@@ -11,7 +11,7 @@ from inventory.infrastructure.http.category_routes import category_urls
 app = Flask(__name__)
 app.config.from_object(Config)
 
-# Init SQLAlchemy & Flask-Migrate
+# Init SQLAlchemy & Marshmallow
 db.init_app(app)
 ma.init_app(app)
 

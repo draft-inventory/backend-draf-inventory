@@ -2,10 +2,15 @@ from flask import Blueprint, request, jsonify
 from ...application.services.category_service import CategoryService
 from ...domain.schemas.category_schema import category_schema
 
+# Swagger
+from flasgger import swag_from
+from ...infrastructure.http.swagger.category_swagger import create_category_swagger
+
 category_urls = Blueprint('category_blueprint', __name__)
 
 
 @category_urls.route('/create', methods=['POST'])
+@swag_from(create_category_swagger)
 def create_category():
     try:
         data = request.get_json()

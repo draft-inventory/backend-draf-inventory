@@ -8,6 +8,7 @@ from common.db.db import db, ma
 
 # Routes
 from inventory.infrastructure.http.category_routes import category_urls
+from inventory.infrastructure.http.price_routes import price_urls
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -29,3 +30,4 @@ swagger = Swagger(app)
 
 # Routes
 app.register_blueprint(category_urls,url_prefix = '/categories')
+app.register_blueprint(price_urls, url_prefix = '/prices')

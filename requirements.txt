@@ -20,4 +20,4 @@ flask_marshmallow==1.2.1
 marshmallow==3.23.1
 marshmallow-sqlalchemy==1.1.0
 mysqlclient==2.2.6
-flasgger==0.9.7
+flasgger==0.9.7.1

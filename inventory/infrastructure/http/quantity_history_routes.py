@@ -1,11 +1,11 @@
 from flask import Blueprint, request, jsonify
 from ...application.services.quantity_history_service import QuantityHistoryService
 from ...application.services.quantity_service import QuantityService
-from ...domain.schemas.quantity_history_schema import quantity_history_schema
+from ...domain.schemas.quantity_history_schema import quantity_history_schema, quantity_history_list_schema
 
 # Swagger
 from flasgger import swag_from
-from ...infrastructure.http.swagger.quantity_history_swagger import create_quantity_history_swagger
+from ...infrastructure.http.swagger.quantity_history_swagger import *
 
 quantity_history_urls = Blueprint('quantity_history_blueprint', __name__)
 
@@ -78,6 +78,21 @@ def create_quantity_history():
                 "error": str(ex)
             }
         ), 400
+    except Exception as ex:
+        return jsonify(
+            {
+                "error": "Internal error", "exception": str(ex)
+            }
+        ), 500
+
+
+@quantity_history_urls.route('/all', methods=['GET'])
+@swag_from(get_all_quantity_histories_swagger)
+def get_all_quantity_histories():
+    try:
+        quantity_histories = QuantityHistoryService.get_all_quantity_histories()
+        result = quantity_history_list_schema.dump(quantity_histories)
+        return jsonify(result), 200
     except Exception as ex:
         return jsonify(
             {

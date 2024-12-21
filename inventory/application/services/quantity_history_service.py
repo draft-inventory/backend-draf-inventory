@@ -14,3 +14,7 @@ class QuantityHistoryService():
             raise ValueError("Remaining quantity can't be negative.")
 
         return QuantityHistoryRepository.create_quantity_history(quantity_id, date, sold_quantity, remaining_quantity)
+
+    @staticmethod
+    def get_all_quantity_histories():
+        return QuantityHistoryRepository.get_all_quantity_histories()

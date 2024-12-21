@@ -73,3 +73,44 @@ create_quantity_history_swagger = {
         }
     }
 }
+
+
+get_all_quantity_histories_swagger = {
+    "tags": ["Quantity History"],
+    "summary": "Get all quantity histories",
+    "description": "Get all quantity histories",
+    "parameters": [],
+    "responses": {
+        200: {
+            "description": "Quantity histories retrieved successfully",
+            "schema": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "integer",
+                            "description": "Quantity history id"
+                        },
+                        "quantity_id": {
+                            "type": "integer",
+                            "description": "Quantity id"
+                        },
+                        "date": {
+                            "type": "string",
+                            "description": "Date"
+                        },
+                        "sold_quantity": {
+                            "type": "integer",
+                            "description": "Sold quantity"
+                        },
+                        "remaining_quantity": {
+                            "type": "integer",
+                            "description": "Remaining quantity after the sale"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

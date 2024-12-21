@@ -10,3 +10,7 @@ class QuantityHistoryRepository():
         db.session.add(new_quantity_history)
         db.session.commit()
         return new_quantity_history
+
+    @staticmethod
+    def get_all_quantity_histories():
+        return QuantityHistory.query.all()

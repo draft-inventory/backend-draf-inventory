@@ -124,3 +124,27 @@ def get_quantity_history_by_id(quantity_id):
                 "error": "Internal error", "exception": str(ex)
             }
         ), 500
+
+@quantity_history_urls.route('/quantity/<int:quantity_id>', methods=['GET'])
+@swag_from(get_quantity_by_quiantity_id_swagger)
+def get_quantity_by_quiantity_id(quantity_id):
+    try:
+        quantity_history = QuantityHistoryService.get_quantity_history_by_quantity_id(
+            quantity_id)
+        if not quantity_history:
+            return jsonify(
+                {
+                    "error": "Quantity history not found."
+                }
+            ), 404
+
+        result = quantity_history_list_schema.dump(quantity_history)
+
+        return jsonify(result), 200
+
+    except Exception as ex:
+        return jsonify(
+            {
+                "error": "Internal error", "exception": str(ex)
+            }
+        ), 500

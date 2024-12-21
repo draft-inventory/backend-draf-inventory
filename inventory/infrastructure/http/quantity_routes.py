@@ -15,30 +15,17 @@ def create_quantity():
     try:
         data = request.get_json()
         initial_quantity = data.get('initial_quantity')
-        progress_quantity = data.get('progress_quantity')
 
         # Validate initial_quantity
-        if initial_quantity < 0:
+        if initial_quantity is None or initial_quantity < 0:
             return jsonify(
                 {
-                    "error": "Initial quantity can't be negative."
+                    "error": "Initial quantity can't be negative or empty."
                 }
             ), 400
 
-        # Validate progress_quantity
-        if progress_quantity < 0:
-            return jsonify(
-                {
-                    "error": "Progress quantity can't be negative."
-                }
-            ), 400
-
-        if initial_quantity < progress_quantity:
-            return jsonify(
-                {
-                    "error": "Initial quantity can't be less than progress quantity."
-                }
-            ), 400
+        # Set progress_quantity to initial_quantity by default
+        progress_quantity = initial_quantity
 
         # Create Quantity
         new_quantity = QuantityService.create_quantity(
@@ -52,7 +39,11 @@ def create_quantity():
     except ValueError as ex:
         return jsonify({"error": str(ex)}), 400
     except Exception as ex:
-        return jsonify({"error": "Internal error", "except": str(ex)}), 500
+        return jsonify(
+            {
+                "error": "Internal error", "except": str(ex)
+            }
+        ), 500
 
 
 @quantity_urls.route('/all', methods=['GET'])
@@ -132,12 +123,14 @@ def delete_quantity(quantity_id):
             }
         ), 500
 
+
 @quantity_urls.route('/<int:quantity_id>', methods=['PATCH'])
 @swag_from(patch_quantity_swagger)
 def patch_quantity(quantity_id):
     try:
         fields_to_update = request.get_json()
-        updated_quantity = QuantityService.patch_quantity(quantity_id, fields_to_update)
+        updated_quantity = QuantityService.patch_quantity(
+            quantity_id, fields_to_update)
         if not updated_quantity:
             return jsonify({"error": "Quantity not found"}), 404
         result = quantity_schema.dump(updated_quantity)

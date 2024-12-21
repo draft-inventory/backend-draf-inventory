@@ -1,31 +1,27 @@
 from flasgger import swag_from
 
-# Create_quantity_swagger
 create_quantity_swagger = {
     "tags": ["Quantity"],
     "summary": "Create a new quantity",
-    "description": "Create a new quantity",
-    "parameters": [
-        {
-            "name": "body",
-            "in": "body",
-            "required": True,
-            "schema": {
-                "type": "object",
-                "properties": {
-                    "initial_quantity": {
-                        "type": "integer",
-                        "description": "Initial quantity. Must be a positive number."
+    "description": "Create a new quantity with `progress_quantity` set to the same value as `initial_quantity`.",
+    "requestBody": {
+        "required": True,
+        "content": {
+            "application/json": {
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "initial_quantity": {
+                            "type": "integer",
+                            "description": "Initial quantity. Must be a positive number.",
+                            "example": 60
+                        }
                     },
-                    "progress_quantity": {
-                        "type": "integer",
-                        "description": "Progress quantity. Must be a positive number."
-                    }
-                },
-                "required": ["initial_quantity", "progress_quantity"]
+                    "required": ["initial_quantity"]
+                }
             }
         }
-    ],
+    },
     "responses": {
         201: {
             "description": "Quantity created successfully",
@@ -42,7 +38,7 @@ create_quantity_swagger = {
                     },
                     "progress_quantity": {
                         "type": "integer",
-                        "description": "Progress quantity"
+                        "description": "Progress quantity (equal to initial_quantity)"
                     }
                 }
             }

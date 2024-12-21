@@ -9,6 +9,6 @@ class Price(db.Model):
     sale_price = db.Column(db.Numeric(precision=10, scale=5), nullable=False)
 
     # Relación uno a uno con productos
-    product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
-    product = db.relationship(
-        'Product', back_populates='price', lazy='dynamic')
+    product_id = db.Column(db.Integer, db.ForeignKey(
+        'products.id'), nullable=False)
+    product = db.relationship('Product', back_populates='price')

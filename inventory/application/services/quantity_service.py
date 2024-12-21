@@ -1,6 +1,7 @@
 from ...infrastructure.repositories.quantity_repository import QuantityRepository
 from ...infrastructure.repositories.quantity_history_repository import QuantityHistoryRepository
 
+
 class QuantityService():
     @staticmethod
     def create_quantity(initial_quantity, progress_quantity):
@@ -48,3 +49,15 @@ class QuantityService():
         # Eliminar todas las referencias en quantity_history
         QuantityHistoryRepository.delete_by_quantity_id(quantity_id)
         return QuantityRepository.delete_quantity(quantity_id)
+
+    @staticmethod
+    def patch_quantity(quantity_id, fields_to_update):
+        if "initial_quantity" in fields_to_update and fields_to_update["initial_quantity"] < 0:
+            raise ValueError("Initial quantity can't be negative.")
+        if "progress_quantity" in fields_to_update and fields_to_update["progress_quantity"] < 0:
+            raise ValueError("Progress quantity can't be negative.")
+        if "initial_quantity" in fields_to_update and "progress_quantity" in fields_to_update:
+            if fields_to_update["initial_quantity"] < fields_to_update["progress_quantity"]:
+                raise ValueError(
+                    "Initial quantity must be greater than or equal to progress quantity.")
+        return QuantityRepository.patch_quantity(quantity_id, fields_to_update)

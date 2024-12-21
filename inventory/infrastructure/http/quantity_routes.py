@@ -131,3 +131,18 @@ def delete_quantity(quantity_id):
                 "error": "Internal error", "except": str(ex)
             }
         ), 500
+
+@quantity_urls.route('/<int:quantity_id>', methods=['PATCH'])
+@swag_from(patch_quantity_swagger)
+def patch_quantity(quantity_id):
+    try:
+        fields_to_update = request.get_json()
+        updated_quantity = QuantityService.patch_quantity(quantity_id, fields_to_update)
+        if not updated_quantity:
+            return jsonify({"error": "Quantity not found"}), 404
+        result = quantity_schema.dump(updated_quantity)
+        return jsonify(result), 200
+    except ValueError as ex:
+        return jsonify({"error": str(ex)}), 400
+    except Exception as ex:
+        return jsonify({"error": "Internal error", "except": str(ex)}), 500

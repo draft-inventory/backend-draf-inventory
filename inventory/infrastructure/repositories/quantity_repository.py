@@ -45,3 +45,12 @@ class QuantityRepository:
             db.session.delete(quantity)
             db.session.commit()
         return quantity
+
+    @staticmethod
+    def patch_quantity(quantity_id, fields_to_update):
+        quantity = Quantity.query.get(quantity_id)
+        if quantity:
+            for key, value in fields_to_update.items():
+                setattr(quantity, key, value)
+            db.session.commit()
+        return quantity

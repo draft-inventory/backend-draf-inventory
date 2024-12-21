@@ -311,3 +311,82 @@ delete_quantity_swagger = {
         }
     }
 }
+
+patch_quantity_swagger = {
+    "tags": ["Quantity"],
+    "summary": "Patch quantity",
+    "description": "Patch quantity",
+    "parameters": [
+        {
+            "name": "quantity_id",
+            "in": "path",
+            "required": True,
+            "type": "integer",
+            "description": "Quantity id"
+        },
+        {
+            "name": "body",
+            "in": "body",
+            "required": True,
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "initial_quantity": {
+                        "type": "integer",
+                        "description": "Initial quantity. Must be a positive number."
+                    },
+                    "progress_quantity": {
+                        "type": "integer",
+                        "description": "Progress quantity. Must be a positive number."
+                    }
+                }
+            }
+        }
+    ],
+    "responses": {
+        200: {
+            "description": "Quantity patched successfully",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "Quantity id"
+                    },
+                    "initial_quantity": {
+                        "type": "integer",
+                        "description": "Initial quantity"
+                    },
+                    "progress_quantity": {
+                        "type": "integer",
+                        "description": "Progress quantity"
+                    }
+                }
+            }
+        },
+        400: {
+            "description": "Invalid input",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string",
+                        "description": "Error message"
+                    }
+                }
+            }
+        },
+        500: {
+            "description": "Internal error",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string",
+                        "description": "Error message"
+                    }
+                }
+            }
+        }
+    }
+}

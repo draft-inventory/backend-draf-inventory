@@ -152,7 +152,7 @@ get_quantity_history_by_id_swagger = {
                     },
                     "remaining_quantity": {
                         "type": "integer",
-                        "description": "Remaining quantity after the sale"
+                        "description": "Remaining quantity"
                     }
                 }
             }
@@ -162,27 +162,13 @@ get_quantity_history_by_id_swagger = {
             "schema": {
                 "type": "object",
                 "properties": {
-                    "error": {
-                        "type": "string",
-                        "description": "Error message"
-                    }
-                }
-            }
-        },
-        500: {
-            "description": "Internal error",
-            "schema": {
-                "type": "object",
-                "properties": {
-                    "error": {
-                        "type": "string",
-                        "description": "Error message"
-                    }
+                    "error": {"type": "string", "description": "Error message"}
                 }
             }
         }
     }
 }
+
 
 get_quantity_by_quiantity_id_swagger = {
     "tags": ["Quantity History"],
@@ -232,6 +218,47 @@ get_quantity_by_quiantity_id_swagger = {
         },
         500: {
             "description": "Internal error",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string",
+                        "description": "Error message"
+                    }
+                }
+            }
+        }
+    }
+}
+
+delete_quantity_history_swagger = {
+    "tags": ["Quantity History"],
+    "summary": "Delete quantity history",
+    "description": "Delete quantity history",
+    "parameters": [
+        {
+            "name": "quantity_history_id",
+            "in": "path",
+            "required": True,
+            "type": "integer",
+            "description": "Quantity history id"
+        }
+    ],
+    "responses": {
+        200: {
+            "description": "Quantity history deleted successfully",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Success message"
+                    }
+                }
+            }
+        },
+        404: {
+            "description": "Quantity history not found",
             "schema": {
                 "type": "object",
                 "properties": {

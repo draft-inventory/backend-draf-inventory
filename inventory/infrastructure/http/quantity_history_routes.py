@@ -101,29 +101,21 @@ def get_all_quantity_histories():
         ), 500
 
 
-@quantity_history_urls.route('/<int:quantity_id>', methods=['GET'])
+@quantity_history_urls.route('/<int:quanty_history_id>', methods=['GET'])
 @swag_from(get_quantity_history_by_id_swagger)
-def get_quantity_history_by_id(quantity_id):
+def get_quantity_history_by_id(quantity_history_id):
     try:
         quantity_history = QuantityHistoryService.get_quantity_history_by_id(
-            quantity_id)
+            quantity_history_id)
         if not quantity_history:
-            return jsonify(
-                {
-                    "error": "Quantity history not found."
-                }
-            ), 404
+            return jsonify({"error": "Quantity history not found."}), 404
 
         result = quantity_history_schema.dump(quantity_history)
-
         return jsonify(result), 200
 
     except Exception as ex:
-        return jsonify(
-            {
-                "error": "Internal error", "exception": str(ex)
-            }
-        ), 500
+        return jsonify({"error": "Internal error", "exception": str(ex)}), 500
+
 
 @quantity_history_urls.route('/quantity/<int:quantity_id>', methods=['GET'])
 @swag_from(get_quantity_by_quiantity_id_swagger)
@@ -148,3 +140,18 @@ def get_quantity_by_quiantity_id(quantity_id):
                 "error": "Internal error", "exception": str(ex)
             }
         ), 500
+
+
+@quantity_history_urls.route('/<int:quantity_history_id>', methods=['DELETE'])
+@swag_from(delete_quantity_history_swagger)
+def delete_quantity_history(quantity_history_id):
+    try:
+        quantity_history = QuantityHistoryService.delete_quantity_history(
+            quantity_history_id)
+        if not quantity_history:
+            return jsonify({"error": "Quantity history not found."}), 404
+
+        return jsonify({"message": "Quantity history deleted successfully"}), 200
+
+    except Exception as ex:
+        return jsonify({"error": "Internal error", "exception": str(ex)}), 500

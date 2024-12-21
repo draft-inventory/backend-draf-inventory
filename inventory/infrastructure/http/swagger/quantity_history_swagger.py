@@ -5,31 +5,35 @@ create_quantity_history_swagger = {
     "tags": ["Quantity History"],
     "summary": "Create a new quantity history",
     "description": "Create a new quantity history",
-    "parameters": [
-        {
-            "name": "body",
-            "in": "body",
-            "required": True,
-            "schema": {
-                "type": "object",
-                "properties": {
-                    "quantity_id": {
-                        "type": "integer",
-                        "description": "Quantity id. Must be a positive number."
+    "requestBody": {
+        "required": True,
+        "content": {
+            "application/json": {
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "quantity_id": {
+                            "type": "integer",
+                            "example": 1,
+                            "description": "Quantity id. Must be a positive number."
+                        },
+                        "date": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2024-12-31",
+                            "description": "Date. Must be a valid date."
+                        },
+                        "sold_quantity": {
+                            "type": "integer",
+                            "example": 1,
+                            "description": "Sold quantity. Must be a positive number."
+                        }
                     },
-                    "date": {
-                        "type": "string",
-                        "description": "Date. Must be a valid date."
-                    },
-                    "sold_quantity": {
-                        "type": "integer",
-                        "description": "Sold quantity. Must be a positive number."
-                    }
-                },
-                "required": ["quantity_id", "date", "sold_quantity"]
+                    "required": ["quantity_id", "date", "sold_quantity"]
+                }
             }
         }
-    ],
+    },
     "responses": {
         201: {
             "description": "Quantity history created successfully",

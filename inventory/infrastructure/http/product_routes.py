@@ -69,3 +69,14 @@ def create_product():
         return jsonify({"error": str(ex)}), 400
     except Exception as ex:
         return jsonify({"error": "Internal error", "except": str(ex)}), 500
+
+
+@product_urls.route('/all', methods=['GET'])
+@swag_from(get_all_products_swagger)
+def get_all_products():
+    try:
+        products = ProductService.get_all_products()
+        result = product_list_schema.dump(products)
+        return jsonify(result), 200
+    except Exception as ex:
+        return jsonify({"error": "Internal error", "exception": str(ex)}), 500

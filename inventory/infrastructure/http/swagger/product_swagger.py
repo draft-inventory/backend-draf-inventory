@@ -136,3 +136,83 @@ create_product_swagger = {
         }
     }
 }
+
+
+get_all_products_swagger = {
+    'tags': ['Product'],
+    'summary': 'Get All Products',
+    'description': 'Get all products from the database',
+    'responses': {
+        '200': {
+            'description': 'List of products',
+            'content': {
+                'application/json': {
+                    'schema': {
+                        'type': 'array',
+                        'items': {
+                            'type': 'object',
+                            'properties': {
+                                'id': {
+                                    'type': 'integer',
+                                    'example': 1,
+                                    'description': "Product ID."
+                                },
+                                'name': {
+                                    'type': 'string',
+                                    'example': 'Product Name',
+                                    'description': "Name of the product."
+                                },
+                                'description': {
+                                    'type': 'string',
+                                    'example': 'Product Description',
+                                    'description': "Description of the product."
+                                },
+                                'product_code': {
+                                    'type': 'string',
+                                    'example': 'PN_E1',
+                                    'description': "Auto-generated product code based on the name."
+                                },
+                                'expiration_date': {
+                                    'type': 'string',
+                                    'example': '2024-12-31',
+                                    'description': "Expiration date of the product."
+                                },
+                                'location_id': {
+                                    'type': 'integer',
+                                    'example': 1,
+                                    'description': "Location ID of the product."
+                                },
+                                'category_id': {
+                                    'type': 'integer',
+                                    'example': 1,
+                                    'description': "Category ID of the product."
+                                },
+                                'quantity_id': {
+                                    'type': 'integer',
+                                    'example': 2,
+                                    'description': "Quantity ID of the product."
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        '500': {
+            'description': 'Internal error',
+            'content': {
+                'application/json': {
+                    'schema': {
+                        'type': 'object',
+                        'properties': {
+                            'error': {
+                                'type': 'string',
+                                'example': 'Internal error occurred while fetching the products.'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -22,3 +22,7 @@ class ProductRepository:
     def product_code_exists(product_code):
         # Consulta para verificar si el product_code ya existe en la base de datos
         return db.session.query(Product).filter_by(product_code=product_code).first() is not None
+
+    @staticmethod
+    def get_all_products():
+        return Product.query.all()

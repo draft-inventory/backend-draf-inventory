@@ -17,3 +17,8 @@ class ProductRepository:
         db.session.add(new_product)
         db.session.commit()
         return new_product
+
+    @staticmethod
+    def product_code_exists(product_code):
+        # Consulta para verificar si el product_code ya existe en la base de datos
+        return db.session.query(Product).filter_by(product_code=product_code).first() is not None

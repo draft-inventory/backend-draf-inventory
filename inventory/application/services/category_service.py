@@ -8,3 +8,7 @@ class CategoryService():
             raise ValueError("Category name can't be empity.")
 
         return CategoryRepository.create_category(name)
+
+    @staticmethod
+    def get_category_by_id(category_id):
+        return CategoryRepository.get_category_by_id(category_id)

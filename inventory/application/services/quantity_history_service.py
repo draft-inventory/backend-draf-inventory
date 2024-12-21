@@ -51,3 +51,7 @@ class QuantityHistoryService():
         return QuantityHistoryRepository.update_quantity_history(
             quantity_history_id, quantity_id, date, sold_quantity, remaining_quantity
         )
+
+    @staticmethod
+    def patch_quantity_history(quantity_history_id, fields_to_update):
+        return QuantityHistoryRepository.patch_quantity_history(quantity_history_id, fields_to_update=fields_to_update)

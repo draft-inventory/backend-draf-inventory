@@ -222,3 +222,65 @@ def update_quantity_history(quantity_history_id):
         return jsonify({"error": str(ex)}), 400
     except Exception as ex:
         return jsonify({"error": "Internal error", "exception": str(ex)}), 500
+
+
+@quantity_history_urls.route('/<int:quantity_history_id>', methods=['PATCH'])
+@swag_from(patch_quantity_history_swagger)
+def patch_quantity_history(quantity_history_id):
+    try:
+        data = request.get_json()
+        quantity_id = data.get('quantity_id')
+        date = data.get('date')
+        sold_quantity = data.get('sold_quantity')
+
+        # Validar que el registro exista
+        quantity_history = QuantityHistoryService.get_quantity_history_by_id(
+            quantity_history_id)
+        if not quantity_history:
+            return jsonify({"error": "Quantity history not found."}), 404
+
+        # Validar entradas
+        if quantity_id is not None and not quantity_id:
+            return jsonify({"error": "Quantity ID can't be empty."}), 400
+
+        if date is not None and not date:
+            return jsonify({"error": "Date can't be empty."}), 400
+
+        if sold_quantity is not None and sold_quantity < 0:
+            return jsonify({"error": "Sold quantity can't be negative."}), 400
+
+        # Recuperar el Quantity relacionado si se modifica quantity_id o sold_quantity
+        if quantity_id is not None or sold_quantity is not None:
+            quantity = QuantityService.get_quantity_by_id(
+                quantity_id or quantity_history.quantity_id)
+            if not quantity:
+                return jsonify({"error": "Quantity not found."}), 404
+
+            # Validar que sold_quantity no sea mayor que progress_quantity
+            if sold_quantity is not None and sold_quantity > quantity.progress_quantity:
+                return jsonify({"error": "Sold quantity can't be greater than progress quantity."}), 400
+
+            # Calcular el nuevo remaining_quantity si sold_quantity se modifica
+            if sold_quantity is not None:
+                remaining_quantity = quantity.progress_quantity - sold_quantity
+
+                # Actualizar progress_quantity con el nuevo remaining_quantity
+                QuantityService.update_progress_quantity(
+                    quantity_id or quantity_history.quantity_id, remaining_quantity
+                )
+
+                # Añadir remaining_quantity al conjunto de campos a actualizar
+                data['remaining_quantity'] = remaining_quantity
+
+        # Actualizar el registro en QuantityHistory
+        updated_quantity_history = QuantityHistoryService.patch_quantity_history(
+            quantity_history_id, data
+        )
+
+        # Serializar resultado
+        result = quantity_history_schema.dump(updated_quantity_history)
+
+        return jsonify(result), 200
+
+    except Exception as ex:
+        return jsonify({"error": "Internal error", "exception": str(ex)}), 500

@@ -47,3 +47,12 @@ class QuantityHistoryRepository():
             quantity_history.remaining_quantity = remaining_quantity
             db.session.commit()
         return quantity_history
+
+    @staticmethod
+    def patch_quantity_history(quantity_history_id, fields_to_update):
+        quantity_history = QuantityHistory.query.get(quantity_history_id)
+        if quantity_history:
+            for key, value in fields_to_update.items():
+                setattr(quantity_history, key, value)
+            db.session.commit()
+        return quantity_history

@@ -18,3 +18,7 @@ class QuantityHistoryService():
     @staticmethod
     def get_all_quantity_histories():
         return QuantityHistoryRepository.get_all_quantity_histories()
+
+    @staticmethod
+    def get_quantity_history_by_id(quantity_id):
+        return QuantityHistoryRepository.get_quantity_history_by_id(quantity_id)

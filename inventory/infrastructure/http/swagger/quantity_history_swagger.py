@@ -114,3 +114,72 @@ get_all_quantity_histories_swagger = {
         }
     }
 }
+
+get_quantity_history_by_id_swagger = {
+    "tags": ["Quantity History"],
+    "summary": "Get quantity history by id",
+    "description": "Get quantity history by id",
+    "parameters": [
+        {
+            "name": "quantity_history_id",
+            "in": "path",
+            "type": "integer",
+            "required": True,
+            "description": "Quantity history id"
+        }
+    ],
+    "responses": {
+        200: {
+            "description": "Quantity history retrieved successfully",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "Quantity history id"
+                    },
+                    "quantity_id": {
+                        "type": "integer",
+                        "description": "Quantity id"
+                    },
+                    "date": {
+                        "type": "string",
+                        "description": "Date"
+                    },
+                    "sold_quantity": {
+                        "type": "integer",
+                        "description": "Sold quantity"
+                    },
+                    "remaining_quantity": {
+                        "type": "integer",
+                        "description": "Remaining quantity after the sale"
+                    }
+                }
+            }
+        },
+        404: {
+            "description": "Quantity history not found",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string",
+                        "description": "Error message"
+                    }
+                }
+            }
+        },
+        500: {
+            "description": "Internal error",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string",
+                        "description": "Error message"
+                    }
+                }
+            }
+        }
+    }
+}

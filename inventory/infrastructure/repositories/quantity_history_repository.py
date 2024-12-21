@@ -14,3 +14,7 @@ class QuantityHistoryRepository():
     @staticmethod
     def get_all_quantity_histories():
         return QuantityHistory.query.all()
+
+    @staticmethod
+    def get_quantity_history_by_id(quantity_id):
+        return QuantityHistory.query.filter_by(quantity_id=quantity_id).first()

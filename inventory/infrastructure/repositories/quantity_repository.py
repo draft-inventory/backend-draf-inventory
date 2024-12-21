@@ -24,3 +24,7 @@ class QuantityRepository:
             quantity.progress_quantity = new_progress_quantity
             db.session.commit()
         return quantity
+
+    @staticmethod
+    def get_all_quantities():
+        return Quantity.query.all()

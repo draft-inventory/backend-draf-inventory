@@ -1,10 +1,10 @@
 from flask import Blueprint, request, jsonify
 from ...application.services.quantity_service import QuantityService
-from ...domain.schemas.quantity_schema import quantity_schema
+from ...domain.schemas.quantity_schema import quantity_schema, quantity_list_schema
 
 # Swagger
 from flasgger import swag_from
-from ...infrastructure.http.swagger.quantity_swagger import create_quantity_swagger
+from ...infrastructure.http.swagger.quantity_swagger import *
 
 quantity_urls = Blueprint('quantity_blueprint', __name__)
 
@@ -51,5 +51,16 @@ def create_quantity():
 
     except ValueError as ex:
         return jsonify({"error": str(ex)}), 400
+    except Exception as ex:
+        return jsonify({"error": "Internal error", "except": str(ex)}), 500
+
+
+@quantity_urls.route('/all', methods=['GET'])
+@swag_from(get_all_quantities_swagger)
+def get_all_quantities():
+    try:
+        quantities = QuantityService.get_all_quantities()
+        result = quantity_list_schema.dump(quantities)
+        return jsonify(result), 200
     except Exception as ex:
         return jsonify({"error": "Internal error", "except": str(ex)}), 500

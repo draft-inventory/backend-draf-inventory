@@ -29,3 +29,7 @@ class QuantityService():
     def update_progress_quantity(quantity_id, new_progress_quantity):
         # Implementar método de actualización desde el repositorio
         return QuantityRepository.update_progress_quantity(quantity_id, new_progress_quantity)
+
+    @staticmethod
+    def get_all_quantities():
+        return QuantityRepository.get_all_quantities()

@@ -73,3 +73,47 @@ create_quantity_swagger = {
         }
     }
 }
+
+get_all_quantities_swagger = {
+    "tags": ["Quantity"],
+    "summary": "Get all quantities",
+    "description": "Get all quantities",
+    "parameters": [],
+    "responses": {
+        200: {
+            "description": "Quantities retrieved successfully",
+            "schema": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "integer",
+                            "description": "Quantity id"
+                        },
+                        "initial_quantity": {
+                            "type": "integer",
+                            "description": "Initial quantity"
+                        },
+                        "progress_quantity": {
+                            "type": "integer",
+                            "description": "Progress quantity"
+                        }
+                    }
+                }
+            }
+        },
+        500: {
+            "description": "Internal error",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string",
+                        "description": "Error message"
+                    }
+                }
+            }
+        }
+    }
+}

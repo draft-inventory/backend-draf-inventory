@@ -123,8 +123,8 @@ get_quantity_history_by_id_swagger = {
         {
             "name": "quantity_history_id",
             "in": "path",
-            "type": "integer",
             "required": True,
+            "type": "integer",
             "description": "Quantity history id"
         }
     ],
@@ -152,7 +152,7 @@ get_quantity_history_by_id_swagger = {
                     },
                     "remaining_quantity": {
                         "type": "integer",
-                        "description": "Remaining quantity"
+                        "description": "Remaining quantity after the sale"
                     }
                 }
             }
@@ -162,7 +162,22 @@ get_quantity_history_by_id_swagger = {
             "schema": {
                 "type": "object",
                 "properties": {
-                    "error": {"type": "string", "description": "Error message"}
+                    "error": {
+                        "type": "string",
+                        "description": "Error message"
+                    }
+                }
+            }
+        },
+        500: {
+            "description": "Internal error",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string",
+                        "description": "Error message"
+                    }
                 }
             }
         }

@@ -26,7 +26,8 @@ sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 # Configuration Swagger
 app.config['SWAGGER'] = {
     'title': 'Draft Inventory API',
-    'uiversion': 3
+    'uiversion': 3,
+    'openapi': '3.0.0'
 }
 swagger = Swagger(app)
 

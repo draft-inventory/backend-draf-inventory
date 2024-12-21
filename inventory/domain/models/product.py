@@ -12,12 +12,14 @@ class Product(db.Model):
     location_id = db.Column(db.String(50), nullable=True)
 
     # Relación con categoría
-    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
+    category_id = db.Column(db.Integer, db.ForeignKey(
+        'categories.id'), nullable=True)
     category = db.relationship('Category', back_populates='product_list')
 
     # Relación con cantidad
-    quantity_id = db.Column(db.Integer, db.ForeignKey('quantities.id'))
-    quantity = db.relationship('Quantity', back_populates='product_list')
+    quantity_id = db.Column(
+        db.Integer, db.ForeignKey('quantity.id'), nullable=True)
+    quantity = db.relationship('Quantity', back_populates='products')
 
-    # Relación con precio
+    # Relación con precio (uno a uno)
     price = db.relationship('Price', back_populates='product', uselist=False)

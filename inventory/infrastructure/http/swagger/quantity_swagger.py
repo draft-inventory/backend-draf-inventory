@@ -183,6 +183,26 @@ update_quantity_swagger = {
     "tags": ["Quantity"],
     "summary": "Update quantity",
     "description": "Update quantity",
+    "requestBody": {
+        "required": True,
+        "content": {
+            "application/json": {
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "initial_quantity": {
+                            "type": "integer",
+                            "description": "Initial quantity. Must be a positive number."
+                        },
+                        "progress_quantity": {
+                            "type": "integer",
+                            "description": "Progress quantity. Must be a positive number."
+                        }
+                    }
+                }
+            }
+        }
+    },
     "parameters": [
         {
             "name": "quantity_id",
@@ -190,25 +210,6 @@ update_quantity_swagger = {
             "required": True,
             "type": "integer",
             "description": "Quantity id"
-        },
-        {
-            "name": "body",
-            "in": "body",
-            "required": True,
-            "schema": {
-                "type": "object",
-                "properties": {
-                    "initial_quantity": {
-                        "type": "integer",
-                        "description": "Initial quantity. Must be a positive number."
-                    },
-                    "progress_quantity": {
-                        "type": "integer",
-                        "description": "Progress quantity. Must be a positive number."
-                    }
-                },
-                "required": ["initial_quantity", "progress_quantity"]
-            }
         }
     ],
     "responses": {
@@ -316,6 +317,26 @@ patch_quantity_swagger = {
     "tags": ["Quantity"],
     "summary": "Patch quantity",
     "description": "Patch quantity",
+    "requestBody": {
+        "required": True,
+        "content": {
+            "application/json": {
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "initial_quantity": {
+                            "type": "integer",
+                            "description": "Initial quantity. Must be a positive number."
+                        },
+                        "progress_quantity": {
+                            "type": "integer",
+                            "description": "Progress quantity. Must be a positive number."
+                        }
+                    }
+                }
+            }
+        }
+    },
     "parameters": [
         {
             "name": "quantity_id",
@@ -323,24 +344,6 @@ patch_quantity_swagger = {
             "required": True,
             "type": "integer",
             "description": "Quantity id"
-        },
-        {
-            "name": "body",
-            "in": "body",
-            "required": True,
-            "schema": {
-                "type": "object",
-                "properties": {
-                    "initial_quantity": {
-                        "type": "integer",
-                        "description": "Initial quantity. Must be a positive number."
-                    },
-                    "progress_quantity": {
-                        "type": "integer",
-                        "description": "Progress quantity. Must be a positive number."
-                    }
-                }
-            }
         }
     ],
     "responses": {

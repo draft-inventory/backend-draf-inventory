@@ -117,3 +117,64 @@ get_all_quantities_swagger = {
         }
     }
 }
+
+get_quantity_by_id_swagger = {
+    "tags": ["Quantity"],
+    "summary": "Get quantity by id",
+    "description": "Get quantity by id",
+    "parameters": [
+        {
+            "name": "quantity_id",
+            "in": "path",
+            "required": True,
+            "type": "integer",
+            "description": "Quantity id"
+        }
+    ],
+    "responses": {
+        200: {
+            "description": "Quantity retrieved successfully",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "Quantity id"
+                    },
+                    "initial_quantity": {
+                        "type": "integer",
+                        "description": "Initial quantity"
+                    },
+                    "progress_quantity": {
+                        "type": "integer",
+                        "description": "Progress quantity"
+                    }
+                }
+            }
+        },
+        404: {
+            "description": "Quantity not found",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string",
+                        "description": "Error message"
+                    }
+                }
+            }
+        },
+        500: {
+            "description": "Internal error",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string",
+                        "description": "Error message"
+                    }
+                }
+            }
+        }
+    }
+}

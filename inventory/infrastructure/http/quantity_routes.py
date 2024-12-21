@@ -64,3 +64,16 @@ def get_all_quantities():
         return jsonify(result), 200
     except Exception as ex:
         return jsonify({"error": "Internal error", "except": str(ex)}), 500
+
+
+@quantity_urls.route('/<int:quantity_id>', methods=['GET'])
+@swag_from(get_quantity_by_id_swagger)
+def get_quantity_by_id(quantity_id):
+    try:
+        quantity = QuantityService.get_quantity_by_id(quantity_id)
+        if not quantity:
+            return jsonify({"error": "Quantity not found"}), 404
+        result = quantity_schema.dump(quantity)
+        return jsonify(result), 200
+    except Exception as ex:
+        return jsonify({"error": "Internal error", "except": str(ex)}), 500

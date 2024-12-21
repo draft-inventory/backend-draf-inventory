@@ -79,4 +79,31 @@ def get_all_products():
         result = product_list_schema.dump(products)
         return jsonify(result), 200
     except Exception as ex:
-        return jsonify({"error": "Internal error", "exception": str(ex)}), 500
+        return jsonify(
+            {
+                "error": "Internal error", "exception": str(ex)
+            }
+        ), 500
+
+
+@product_urls.route('/<int:product_id>', methods=['GET'])
+@swag_from(get_product_by_id_swagger)
+def get_product_by_id(product_id):
+    try:
+        product = ProductService.get_product_by_id(product_id)
+        if not product:
+            return jsonify(
+                {
+                    "error": "Product not found"
+                }
+            ), 404
+
+        result = product_schema.dump(product)
+
+        return jsonify(result), 200
+    except Exception as ex:
+        return jsonify(
+            {
+                "error": "Internal error", "exception": str(ex)
+            }
+        ), 500

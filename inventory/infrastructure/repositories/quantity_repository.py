@@ -28,3 +28,12 @@ class QuantityRepository:
     @staticmethod
     def get_all_quantities():
         return Quantity.query.all()
+
+    @staticmethod
+    def update_quantity(quantity_id, initial_quantity, progress_quantity):
+        quantity = Quantity.query.get(quantity_id)
+        if quantity:
+            quantity.initial_quantity = initial_quantity
+            quantity.progress_quantity = progress_quantity
+            db.session.commit()
+        return quantity

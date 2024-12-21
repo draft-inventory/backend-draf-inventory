@@ -33,3 +33,12 @@ class QuantityService():
     @staticmethod
     def get_all_quantities():
         return QuantityRepository.get_all_quantities()
+
+    @staticmethod
+    def update_quantity(quantity_id, initial_quantity, progress_quantity):
+        if initial_quantity < 0 or progress_quantity < 0:
+            raise ValueError("Quantities can't be negative.")
+        if initial_quantity < progress_quantity:
+            raise ValueError(
+                "Initial quantity must be greater than or equal to progress quantity.")
+        return QuantityRepository.update_quantity(quantity_id, initial_quantity, progress_quantity)

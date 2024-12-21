@@ -72,8 +72,38 @@ def get_quantity_by_id(quantity_id):
     try:
         quantity = QuantityService.get_quantity_by_id(quantity_id)
         if not quantity:
-            return jsonify({"error": "Quantity not found"}), 404
+            return jsonify(
+                {
+                    "error": "Quantity not found"
+                }
+            ), 404
         result = quantity_schema.dump(quantity)
         return jsonify(result), 200
+    except Exception as ex:
+        return jsonify(
+            {
+                "error": "Internal error", "except": str(ex)
+            }
+        ), 500
+
+
+@quantity_urls.route('/<int:quantity_id>', methods=['PUT'])
+@swag_from(update_quantity_swagger)
+def update_quantity(quantity_id):
+    try:
+        data = request.get_json()
+        initial_quantity = data.get('initial_quantity')
+        progress_quantity = data.get('progress_quantity')
+        updated_quantity = QuantityService.update_quantity(
+            quantity_id, initial_quantity, progress_quantity)
+
+        if not updated_quantity:
+            return jsonify({"error": "Quantity not found"}), 404
+
+        result = quantity_schema.dump(updated_quantity)
+
+        return jsonify(result), 200
+    except ValueError as ex:
+        return jsonify({"error": str(ex)}), 400
     except Exception as ex:
         return jsonify({"error": "Internal error", "except": str(ex)}), 500

@@ -42,39 +42,30 @@ def create_quantity_history():
                 }
             ), 400
 
-        if remaining_quantity < 0:
-            return jsonify(
-                {
-                    "error": "Remaining quantity can't be negative."
-                }
-            ), 400
-
         # Recuperar el Quantity
         quantity = QuantityService.get_quantity_by_id(quantity_id)
         if not quantity:
-            return jsonify(
-                {
-                    "error": "Quantity not found."
-                }
-            ), 404
+            return jsonify({"error": "Quantity not found."}), 404
 
-        # Validar relación entre remaining_quantity y initial_quantity
-        if remaining_quantity > quantity.initial_quantity:
+        # Validar que sold_quantity no sea mayor que progress_quantity
+        if sold_quantity > quantity.progress_quantity:
             return jsonify(
                 {
-                    "error": "Remaining quantity can't be greater than initial quantity."
+                    "error": "Sold quantity can't be greater than progress quantity."
                 }
             ), 400
 
+        # Calcular el nuevo remaining_quantity
+        remaining_quantity = quantity.progress_quantity - sold_quantity
 
-        # Actualizar progress_quantity
-        new_progress_quantity = quantity.progress_quantity - sold_quantity
+        # Actualizar progress_quantity con el nuevo remaining_quantity
         QuantityService.update_progress_quantity(
-            quantity_id, new_progress_quantity)
+            quantity_id, remaining_quantity)
 
         # Crear el registro en QuantityHistory
         new_quantity_history = QuantityHistoryService.create_quantity_history(
-            quantity_id, date, sold_quantity, remaining_quantity)
+            quantity_id, date, sold_quantity, remaining_quantity
+        )
 
         # Serializar resultado
         result = quantity_history_schema.dump(new_quantity_history)

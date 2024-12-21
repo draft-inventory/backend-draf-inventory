@@ -24,13 +24,9 @@ create_quantity_history_swagger = {
                     "sold_quantity": {
                         "type": "integer",
                         "description": "Sold quantity. Must be a positive number."
-                    },
-                    "remaining_quantity": {
-                        "type": "integer",
-                        "description": "Remaining quantity. Must be a positive number."
                     }
                 },
-                "required": ["quantity_id", "date", "sold_quantity", "remaining_quantity"]
+                "required": ["quantity_id", "date", "sold_quantity"]
             }
         }
     ],
@@ -58,7 +54,7 @@ create_quantity_history_swagger = {
                     },
                     "remaining_quantity": {
                         "type": "integer",
-                        "description": "Remaining quantity"
+                        "description": "Remaining quantity after the sale"
                     }
                 }
             }

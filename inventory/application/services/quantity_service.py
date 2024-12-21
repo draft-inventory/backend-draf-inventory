@@ -1,5 +1,5 @@
 from ...infrastructure.repositories.quantity_repository import QuantityRepository
-
+from ...infrastructure.repositories.quantity_history_repository import QuantityHistoryRepository
 
 class QuantityService():
     @staticmethod
@@ -42,3 +42,9 @@ class QuantityService():
             raise ValueError(
                 "Initial quantity must be greater than or equal to progress quantity.")
         return QuantityRepository.update_quantity(quantity_id, initial_quantity, progress_quantity)
+
+    @staticmethod
+    def delete_quantity(quantity_id):
+        # Eliminar todas las referencias en quantity_history
+        QuantityHistoryRepository.delete_by_quantity_id(quantity_id)
+        return QuantityRepository.delete_quantity(quantity_id)

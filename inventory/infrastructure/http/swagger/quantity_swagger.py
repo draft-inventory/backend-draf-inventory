@@ -258,3 +258,56 @@ update_quantity_swagger = {
         }
     }
 }
+
+delete_quantity_swagger = {
+    "tags": ["Quantity"],
+    "summary": "Delete quantity",
+    "description": "Delete quantity",
+    "parameters": [
+        {
+            "name": "quantity_id",
+            "in": "path",
+            "required": True,
+            "type": "integer",
+            "description": "Quantity id"
+        }
+    ],
+    "responses": {
+        200: {
+            "description": "Quantity deleted successfully",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Message"
+                    }
+                }
+            }
+        },
+        404: {
+            "description": "Quantity not found",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string",
+                        "description": "Error message"
+                    }
+                }
+            }
+        },
+        500: {
+            "description": "Internal error",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string",
+                        "description": "Error message"
+                    }
+                }
+            }
+        }
+    }
+}

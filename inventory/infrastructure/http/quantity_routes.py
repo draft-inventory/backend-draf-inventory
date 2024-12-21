@@ -107,3 +107,27 @@ def update_quantity(quantity_id):
         return jsonify({"error": str(ex)}), 400
     except Exception as ex:
         return jsonify({"error": "Internal error", "except": str(ex)}), 500
+
+
+@quantity_urls.route('/<int:quantity_id>', methods=['DELETE'])
+@swag_from(delete_quantity_swagger)
+def delete_quantity(quantity_id):
+    try:
+        deleted_quantity = QuantityService.delete_quantity(quantity_id)
+        if not deleted_quantity:
+            return jsonify(
+                {
+                    "error": "Quantity not found"
+                }
+            ), 404
+        return jsonify(
+            {
+                "message": "Quantity deleted successfully"
+            }
+        ), 200
+    except Exception as ex:
+        return jsonify(
+            {
+                "error": "Internal error", "except": str(ex)
+            }
+        ), 500

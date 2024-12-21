@@ -37,3 +37,11 @@ class QuantityRepository:
             quantity.progress_quantity = progress_quantity
             db.session.commit()
         return quantity
+
+    @staticmethod
+    def delete_quantity(quantity_id):
+        quantity = Quantity.query.get(quantity_id)
+        if quantity:
+            db.session.delete(quantity)
+            db.session.commit()
+        return quantity

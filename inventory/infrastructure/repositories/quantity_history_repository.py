@@ -22,3 +22,8 @@ class QuantityHistoryRepository():
     @staticmethod
     def get_quantity_history_by_quantity_id(quantity_id):
         return QuantityHistory.query.filter_by(quantity_id=quantity_id).all()
+
+    @staticmethod
+    def delete_by_quantity_id(quantity_id):
+        QuantityHistory.query.filter_by(quantity_id=quantity_id).delete()
+        db.session.commit()

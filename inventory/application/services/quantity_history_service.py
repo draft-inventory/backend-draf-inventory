@@ -26,3 +26,7 @@ class QuantityHistoryService():
     @staticmethod
     def get_quantity_history_by_quantity_id(quantity_id):
         return QuantityHistoryRepository.get_quantity_history_by_quantity_id(quantity_id)
+
+    @staticmethod
+    def delete_by_quantity_id(quantity_id):
+        return QuantityHistoryRepository.delete_by_quantity_id(quantity_id)

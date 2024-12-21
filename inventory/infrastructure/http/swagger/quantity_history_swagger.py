@@ -286,3 +286,107 @@ delete_quantity_history_swagger = {
         }
     }
 }
+
+update_quantity_history_swagger = {
+    "tags": ["Quantity History"],
+    "summary": "Update quantity history",
+    "description": "Update quantity history",
+    "requestBody": {
+        "required": True,
+        "content": {
+            "application/json": {
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "quantity_id": {
+                            "type": "integer",
+                            "description": "Quantity id. Must be a positive number."
+                        },
+                        "date": {
+                            "type": "string",
+                            "description": "Date. Must be a valid date."
+                        },
+                        "sold_quantity": {
+                            "type": "integer",
+                            "description": "Sold quantity. Must be a positive number."
+                        }
+                    },
+                    "required": ["quantity_id", "date", "sold_quantity"]
+                }
+            }
+        }
+    },
+    "parameters": [
+        {
+            "name": "quantity_history_id",
+            "in": "path",
+            "required": True,
+            "schema": {
+                "type": "integer",
+                "example": 1
+            },
+            "description": "Quantity history id"
+        }
+    ],
+    "responses": {
+        200: {
+            "description": "Quantity history updated successfully",
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "id": {"type": "integer", "description": "Quantity history id"},
+                            "quantity_id": {"type": "integer", "description": "Quantity id"},
+                            "date": {"type": "string", "description": "Date"},
+                            "sold_quantity": {"type": "integer", "description": "Sold quantity"},
+                            "remaining_quantity": {
+                                "type": "integer",
+                                "description": "Remaining quantity after the sale"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        404: {
+            "description": "Quantity history not found",
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {"type": "string", "description": "Error message"}
+                        }
+                    }
+                }
+            }
+        },
+        400: {
+            "description": "Invalid input",
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {"type": "string", "description": "Error message"}
+                        }
+                    }
+                }
+            }
+        },
+        500: {
+            "description": "Internal error",
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {"type": "string", "description": "Error message"}
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

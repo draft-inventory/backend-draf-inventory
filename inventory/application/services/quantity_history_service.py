@@ -34,3 +34,20 @@ class QuantityHistoryService():
     @staticmethod
     def delete_quantity_history(quantity_history_id):
         return QuantityHistoryRepository.delete_quantity_history(quantity_history_id)
+
+    @staticmethod
+    def update_quantity_history(quantity_history_id, quantity_id, date, sold_quantity, remaining_quantity):
+        if not quantity_history_id:
+            raise ValueError("Quantity history ID is required.")
+        if not quantity_id:
+            raise ValueError("Quantity ID is required.")
+        if not date:
+            raise ValueError("Date is required.")
+        if sold_quantity < 0:
+            raise ValueError("Sold quantity cannot be negative.")
+        if remaining_quantity < 0:
+            raise ValueError("Remaining quantity cannot be negative.")
+
+        return QuantityHistoryRepository.update_quantity_history(
+            quantity_history_id, quantity_id, date, sold_quantity, remaining_quantity
+        )

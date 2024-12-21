@@ -35,3 +35,15 @@ class QuantityHistoryRepository():
             db.session.delete(quantity_history)
             db.session.commit()
         return quantity_history
+
+    @staticmethod
+    def update_quantity_history(quantity_history_id, quantity_id, date, sold_quantity, remaining_quantity):
+        quantity_history = QuantityHistory.query.filter_by(
+            id=quantity_history_id).first()
+        if quantity_history:
+            quantity_history.quantity_id = quantity_id
+            quantity_history.date = date
+            quantity_history.sold_quantity = sold_quantity
+            quantity_history.remaining_quantity = remaining_quantity
+            db.session.commit()
+        return quantity_history

@@ -12,9 +12,9 @@ class Quantity(db.Model):
     products = db.relationship(
         'Product', back_populates='quantity')
 
-    # # Relación con stocks
-    # stocks = db.relationship(
-    #     'Stock', back_populates='quantity', lazy='dynamic')
+    # Relación con stocks
+    stocks = db.relationship(
+        'Stock', back_populates='quantity', lazy='dynamic')
 
     # Relación con quantity_history
     history = db.relationship(

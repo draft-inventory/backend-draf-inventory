@@ -30,3 +30,17 @@ class ProductRepository:
     @staticmethod
     def get_product_by_id(product_id):
         return Product.query.filter_by(id=product_id).first()
+
+    @staticmethod
+    def update_product(product_id, name, description, product_code, expiration_date, location_id, category_id, quantity_id):
+        product = Product.query.filter_by(id=product_id).first()
+        if product:
+            product.name = name
+            product.description = description
+            product.product_code = product_code
+            product.expiration_date = expiration_date
+            product.location_id = location_id
+            product.category_id = category_id
+            product.quantity_id = quantity_id
+            db.session.commit()
+        return product

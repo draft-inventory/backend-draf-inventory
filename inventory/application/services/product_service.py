@@ -18,3 +18,9 @@ class ProductService:
     @staticmethod
     def get_product_by_id(product_id):
         return ProductRepository.get_product_by_id(product_id)
+
+    @staticmethod
+    def update_product(product_id, name, description, product_code, expiration_date, location_id, category_id, quantity_id):
+        return ProductRepository.update_product(
+            product_id, name, description, product_code, expiration_date, location_id, category_id, quantity_id
+        )

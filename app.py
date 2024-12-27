@@ -7,12 +7,12 @@ from config.config import Config
 from common.db.db import db, ma
 
 # Routes
-from inventory.infrastructure.http.category_routes import category_urls
-from inventory.infrastructure.http.price_routes import price_urls
-from inventory.infrastructure.http.quantity_routes import quantity_urls
-from inventory.infrastructure.http.quantity_history_routes import quantity_history_urls
-from inventory.infrastructure.http.product_routes import product_urls
-from inventory.infrastructure.http.stock_routes import stock_urls
+from inventory.infrastructure.routes.category_routes import category_urls
+from inventory.infrastructure.routes.price_routes import price_urls
+from inventory.infrastructure.routes.quantity_routes import quantity_urls
+from inventory.infrastructure.routes.quantity_history_routes import quantity_history_urls
+from inventory.infrastructure.routes.product_routes import product_urls
+from inventory.infrastructure.routes.stock_routes import stock_urls
 
 app = Flask(__name__)
 app.config.from_object(Config)

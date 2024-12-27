@@ -275,3 +275,27 @@ def patch_product(product_id):
                 "error": "Internal error", "exception": str(ex)
             }
         ), 500
+
+@product_urls.route('/<int:product_id>', methods=['DELETE'])
+@swag_from(delete_product_swagger)
+def delete_product(product_id):
+    try:
+        # Obtener el producto por ID
+        product = ProductService.get_product_by_id(product_id)
+        if not product:
+            return jsonify({"error": "Product not found"}), 404
+
+        # Obtener el quantity_id asociado al producto
+        quantity_id = product.quantity_id
+
+        # Eliminar el producto
+        ProductService.delete_product(product_id)
+
+        # Eliminar registros asociados al quantity_id
+        if quantity_id:
+            QuantityService.delete_quantity_and_related_data(quantity_id)
+
+        return jsonify({"message": "Product and related data deleted successfully"}), 200
+
+    except Exception as ex:
+        return jsonify({"error": "Internal error", "exception": str(ex)}), 500

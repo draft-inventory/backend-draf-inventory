@@ -61,3 +61,16 @@ class QuantityService():
                 raise ValueError(
                     "Initial quantity must be greater than or equal to progress quantity.")
         return QuantityRepository.patch_quantity(quantity_id, fields_to_update)
+
+    @staticmethod
+    def delete_quantity_and_related_data(quantity_id):
+        # Eliminar registros relacionados en QuantityHistory
+        QuantityHistoryRepository.delete_by_quantity_id(quantity_id)
+
+        # Eliminar el registro principal en Quantity
+        quantity = QuantityRepository.get_quantity_by_id(quantity_id)
+        if quantity:
+            QuantityRepository.delete_quantity(quantity_id)
+            return {"message": f"Quantity ID {quantity_id} and related history deleted successfully"}
+        else:
+            return {"error": f"Quantity ID {quantity_id} not found"}

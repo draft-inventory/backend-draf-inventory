@@ -49,3 +49,11 @@ class ProductRepository:
     def update_product_instance(product_instance):
         db.session.commit()
         return product_instance
+
+    @staticmethod
+    def delete_product(product_id):
+        product = Product.query.filter_by(id=product_id).first()
+        if product:
+            db.session.delete(product)
+            db.session.commit()
+        return product

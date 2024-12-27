@@ -28,3 +28,7 @@ class ProductService:
     @staticmethod
     def update_product_instance(product_instance):
         return ProductRepository.update_product_instance(product_instance)
+
+    @staticmethod
+    def delete_product(product_id):
+        return ProductRepository.delete_product(product_id)

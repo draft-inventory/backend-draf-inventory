@@ -634,3 +634,72 @@ patch_product_swagger = {
         }
     }
 }
+
+delete_product_swagger = {
+    'tags': ['Product'],
+    'summary': 'Delete Product',
+    'description': 'Delete a product by its ID',
+    'parameters': [
+        {
+            'name': 'product_id',
+            'in': 'path',
+            'description': 'ID of the product to delete',
+            'required': True,
+            'schema': {
+                'type': 'integer',
+                'format': 'int64',
+                'example': 1
+            }
+        }
+    ],
+    'responses': {
+        '200': {
+            'description': 'Product deleted successfully',
+            'content': {
+                'application/json': {
+                    'schema': {
+                        'type': 'object',
+                        'properties': {
+                            'message': {
+                                'type': 'string',
+                                'example': 'Product deleted successfully.'
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        '404': {
+            'description': 'Product not found',
+            'content': {
+                'application/json': {
+                    'schema': {
+                        'type': 'object',
+                        'properties': {
+                            'error': {
+                                'type': 'string',
+                                'example': 'Product not found.'
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        '500': {
+            'description': 'Internal error',
+            'content': {
+                'application/json': {
+                    'schema': {
+                        'type': 'object',
+                        'properties': {
+                            'error': {
+                                'type': 'string',
+                                'example': 'Internal error occurred while deleting the product.'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

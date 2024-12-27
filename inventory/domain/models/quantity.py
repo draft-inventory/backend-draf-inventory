@@ -14,7 +14,7 @@ class Quantity(db.Model):
 
     # Relación con stocks
     stocks = db.relationship(
-        'Stock', back_populates='quantity', lazy='dynamic')
+        'Stock', back_populates='quantity', uselist=True)
 
     # Relación con quantity_history
     history = db.relationship(

@@ -60,7 +60,7 @@ def get_category_by_id(category_id):
 
 
 @category_urls.route('/all', methods=['GET'])
-@swag_from(get_all_categorys_swagger)
+@swag_from(get_all_categories_swagger)
 def get_all_categories():
     try:
         # Retrieve all categories

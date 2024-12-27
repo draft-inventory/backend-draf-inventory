@@ -188,3 +188,90 @@ def update_product(product_id):
                 "error": "Internal error", "exception": str(ex)
             }
         ), 500
+
+
+@product_urls.route('/<int:product_id>', methods=['PATCH'])
+@swag_from(patch_product_swagger)
+def patch_product(product_id):
+    try:
+        data = request.get_json()
+        product = ProductService.get_product_by_id(product_id)
+
+        if not product:
+            return jsonify({"error": "Product not found"}), 404
+
+        # Actualizar los campos enviados en la solicitud
+        if 'name' in data:
+            name = data.get('name')
+            if not re.match("^[A-Za-z\s]+$", name):
+                return jsonify(
+                    {
+                        "error": "Name must only contain alphabetic characters and spaces."
+                    }
+                ), 400
+            product.name = name
+
+            # Actualizar automáticamente el product_code si cambia el name
+            product_code_base = f"{name[0].upper()}{name[-1].upper()}"
+            product_code = product_code_base
+            counter = 1
+            while ProductService.check_product_code_exists(product_code):
+                product_code = f"{product_code_base}_{counter}"
+                counter += 1
+            product.product_code = product_code
+
+        if 'description' in data:
+            description = data.get('description')
+            if not re.match("^[A-Za-z0-9\s]+$", description):
+                return jsonify(
+                    {
+                        "error": "Description must only contain alphanumeric characters and spaces."
+                    }
+                ), 400
+            product.description = description
+
+        if 'category_id' in data:
+            category_id = data.get('category_id')
+            if not CategoryService.get_category_by_id(category_id):
+                return jsonify(
+                    {
+                        "error": f"Category with ID {category_id} does not exist."
+                    }
+                ), 400
+            product.category_id = category_id
+
+        if 'quantity_id' in data:
+            quantity_id = data.get('quantity_id')
+            if not QuantityService.get_quantity_by_id(quantity_id):
+                return jsonify(
+                    {
+                        "error": f"Quantity with ID {quantity_id} does not exist."
+                    }
+                ), 400
+            product.quantity_id = quantity_id
+
+        if 'expiration_date' in data:
+            product.expiration_date = data.get('expiration_date')
+
+        if 'location_id' in data:
+            product.location_id = data.get('location_id')
+
+        # Guardar cambios
+        updated_product = ProductService.update_product_instance(product)
+
+        # Serializar esquema
+        result = product_schema.dump(updated_product)
+        return jsonify(result), 200
+
+    except ValueError as ex:
+        return jsonify(
+            {
+                "error": str(ex)
+            }
+        ), 400
+    except Exception as ex:
+        return jsonify(
+            {
+                "error": "Internal error", "exception": str(ex)
+            }
+        ), 500

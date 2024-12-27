@@ -24,3 +24,7 @@ class ProductService:
         return ProductRepository.update_product(
             product_id, name, description, product_code, expiration_date, location_id, category_id, quantity_id
         )
+
+    @staticmethod
+    def update_product_instance(product_instance):
+        return ProductRepository.update_product_instance(product_instance)

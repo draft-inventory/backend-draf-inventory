@@ -44,3 +44,8 @@ class ProductRepository:
             product.quantity_id = quantity_id
             db.session.commit()
         return product
+
+    @staticmethod
+    def update_product_instance(product_instance):
+        db.session.commit()
+        return product_instance

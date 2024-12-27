@@ -9,5 +9,5 @@ class Stock(db.Model):
     date = db.Column(db.DateTime, nullable=False, default=db.func.now())
 
     # Relación con cantidad
-    quantity_id = db.Column(db.Integer, db.ForeignKey('quantities.id'), nullable=False)
-    quantity = db.relationship('Quantity', back_populates='stock')
+    quantity_id = db.Column(db.Integer, db.ForeignKey('quantity.id'), nullable=False)
+    quantity = db.relationship('Quantity', back_populates='stocks')

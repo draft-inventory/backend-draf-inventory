@@ -5,7 +5,7 @@ from ...domain.schemas.quantity_history_schema import quantity_history_schema, q
 
 # Swagger
 from flasgger import swag_from
-from ...infrastructure.http.swagger.quantity_history_swagger import *
+from ...infrastructure.routes.swagger.quantity_history_swagger import *
 
 quantity_history_urls = Blueprint('quantity_history_blueprint', __name__)
 

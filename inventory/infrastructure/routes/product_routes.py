@@ -7,7 +7,7 @@ from ...domain.schemas.product_schema import product_schema, product_list_schema
 
 # Swagger
 from flasgger import swag_from
-from ...infrastructure.http.swagger.product_swagger import *
+from ...infrastructure.routes.swagger.product_swagger import *
 
 product_urls = Blueprint('product_blueprint', __name__)
 

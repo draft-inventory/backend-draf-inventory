@@ -6,7 +6,7 @@ from ...domain.schemas.category_schema import category_schema, category_list_sch
 
 # Swagger
 from flasgger import swag_from
-from ...infrastructure.http.swagger.category_swagger import *
+from ...infrastructure.routes.swagger.category_swagger import *
 
 category_urls = Blueprint('category_blueprint', __name__)
 

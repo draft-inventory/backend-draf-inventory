@@ -9,7 +9,7 @@ from ...domain.schemas.price_schema import price_schema
 
 # Swagger
 from flasgger import swag_from
-from ...infrastructure.http.swagger.price_swagger import create_price_swagger
+from ...infrastructure.routes.swagger.price_swagger import create_price_swagger
 
 price_urls = Blueprint('price_blueprint', __name__)
 

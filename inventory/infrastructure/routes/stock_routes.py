@@ -5,7 +5,7 @@ from ...domain.schemas.stock_schema import stock_schema, stock_list_schema
 
 # Swagger
 from flasgger import swag_from
-from ...infrastructure.http.swagger.stock_swagger import *
+from ...infrastructure.routes.swagger.stock_swagger import *
 
 stock_urls = Blueprint('stock_blueprint', __name__)
 

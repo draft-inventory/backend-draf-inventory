@@ -12,6 +12,7 @@ from inventory.infrastructure.http.price_routes import price_urls
 from inventory.infrastructure.http.quantity_routes import quantity_urls
 from inventory.infrastructure.http.quantity_history_routes import quantity_history_urls
 from inventory.infrastructure.http.product_routes import product_urls
+from inventory.infrastructure.http.stock_routes import stock_urls
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -39,3 +40,4 @@ app.register_blueprint(price_urls, url_prefix='/prices')
 app.register_blueprint(quantity_urls, url_prefix='/quantities')
 app.register_blueprint(quantity_history_urls, url_prefix='/quantity_histories')
 app.register_blueprint(product_urls, url_prefix='/products')
+app.register_blueprint(stock_urls, url_prefix='/stocks')

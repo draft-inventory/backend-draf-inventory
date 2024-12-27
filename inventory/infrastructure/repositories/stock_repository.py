@@ -13,7 +13,10 @@ class StockRepository:
         db.session.commit()
         return new_stock
 
-    
+    @staticmethod
+    def get_all_stocks():
+        return Stock.query.all()
+
     @staticmethod
     def get_stock_by_id(stock_id):
         return Stock.query.get(stock_id)

@@ -62,6 +62,18 @@ def update_movement_type(stock_id):
     except Exception as ex:
         return jsonify({"error": "Internal error", "except": str(ex)}), 500
 
+@stock_urls.route('/all', methods=['GET'])
+@swag_from(get_all_stocks_swagger)
+def get_all_stocks():
+    try:
+        stocks = StockService.get_all_stocks()
+        result = stock_list_schema.dump(stocks)
+        return jsonify(result), 200
+    except Exception as ex:
+        return jsonify(
+            {"error": "Internal error", "exception": str(ex)}
+        ), 500
+
 
 @stock_urls.route('/<int:stock_id>', methods=['GET'])
 @swag_from(get_stock_by_id_swagger)

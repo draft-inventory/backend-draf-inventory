@@ -18,6 +18,10 @@ class StockService():
         return StockRepository.create_stock(movement_type, quantity_id)
 
     @staticmethod
+    def get_all_stocks():
+        return StockRepository.get_all_stocks()
+
+    @staticmethod
     def get_stock_by_id(stock_id):
         # Validar stock_id
         stock = StockRepository.get_stock_by_id(stock_id)

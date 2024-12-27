@@ -1,6 +1,5 @@
 from ...domain.models.stock import Stock
 from common.db.db import db
-from datetime import datetime
 
 
 class StockRepository:
@@ -9,16 +8,6 @@ class StockRepository:
         new_stock = Stock(
             movement_type=movement_type,
             quantity_id=quantity_id
-        )
-        db.session.add(new_stock)
-        db.session.commit()
-        return new_stock
-    
-    @staticmethod
-    def create_stock_with_quantity(movement_type, quantity):
-        new_stock = Stock(
-            movement_type=movement_type,
-            quantity=quantity  # Asigna directamente el objeto Quantity
         )
         db.session.add(new_stock)
         db.session.commit()

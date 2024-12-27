@@ -18,19 +18,6 @@ class StockService():
         return StockRepository.create_stock(movement_type, quantity_id)
 
     @staticmethod
-    def create_stock_with_quantity(movement_type, quantity):
-        # Validar movement_type
-        if movement_type not in MovementType.__members__:
-            raise ValueError(f"Invalid movement_type. Must be one of {list(MovementType.__members__.keys())}")
-
-        # Validar existencia del objeto Quantity
-        if not quantity or not hasattr(quantity, 'id'):
-            raise ValueError("Invalid quantity object.")
-
-        # Delegar la creación al repositorio
-        return StockRepository.create_stock_with_quantity(movement_type, quantity)
-
-    @staticmethod
     def get_stock_by_id(stock_id):
         # Validar stock_id
         stock = StockRepository.get_stock_by_id(stock_id)

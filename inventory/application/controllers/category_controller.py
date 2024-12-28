@@ -1,4 +1,3 @@
-# category_controller.py
 import re
 from flask import jsonify
 from ...application.services.category_service import CategoryService

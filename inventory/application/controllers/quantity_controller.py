@@ -1,4 +1,3 @@
-# quantity_controller.py
 from flask import jsonify
 from ...application.services.quantity_service import QuantityService
 from ...domain.schemas.quantity_schema import quantity_schema, quantity_list_schema

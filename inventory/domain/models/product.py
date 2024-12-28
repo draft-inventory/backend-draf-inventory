@@ -16,10 +16,11 @@ class Product(db.Model):
         'categories.id'), nullable=True)
     category = db.relationship('Category', back_populates='product_list')
 
-    # Relación con cantidad
-    quantity_id = db.Column(
-        db.Integer, db.ForeignKey('quantity.id'), nullable=True)
-    quantity = db.relationship('Quantity', back_populates='products')
+    # Relación uno a uno con cantidad
+    quantity_id = db.Column(db.Integer, db.ForeignKey(
+        'quantity.id'), unique=True, nullable=True)
+    quantity = db.relationship(
+        'Quantity', back_populates='product', uselist=False)
 
     # Relación con precio (uno a uno)
     price = db.relationship('Price', back_populates='product', uselist=False)

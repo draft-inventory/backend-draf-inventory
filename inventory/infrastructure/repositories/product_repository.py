@@ -32,6 +32,10 @@ class ProductRepository:
         return Product.query.filter_by(id=product_id).first()
 
     @staticmethod
+    def get_by_quantity_id(quantity_id):
+        return Product.query.filter_by(quantity_id=quantity_id).first()
+
+    @staticmethod
     def update_product(product_id, name, description, product_code, expiration_date, location_id, category_id, quantity_id):
         product = Product.query.filter_by(id=product_id).first()
         if product:
@@ -46,7 +50,7 @@ class ProductRepository:
         return product
 
     @staticmethod
-    def update_product_instance(product_instance):
+    def patch_product(product_instance):
         db.session.commit()
         return product_instance
 

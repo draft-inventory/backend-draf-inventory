@@ -11,6 +11,10 @@ class CategoryRepository():
         return new_category
 
     @staticmethod
+    def category_name_exists(name):
+        return db.session.query(Category).filter_by(name=name).first() is not None
+
+    @staticmethod
     def get_category_by_id(category_id):
         return Category.query.get(category_id)
 

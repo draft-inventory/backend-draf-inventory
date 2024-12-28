@@ -10,6 +10,10 @@ class CategoryService():
         return CategoryRepository.create_category(name)
 
     @staticmethod
+    def category_name_exists(name):
+        return CategoryRepository.category_name_exists(name)
+
+    @staticmethod
     def get_category_by_id(category_id):
         category = CategoryRepository.get_category_by_id(category_id)
         if not category:

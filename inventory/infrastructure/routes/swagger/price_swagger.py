@@ -14,13 +14,13 @@ create_price_swagger = {
                 "type": "object",
                 "properties": {
                     "cost_price": {
-                        "type": "number",  # Cambiar de float a number
-                        "format": "float",  # Indicar que es un número con decimales
+                        "type": "number",
+                        "format": "float",
                         "description": "Cost price. Must be not null and a positive number."
                     },
                     "sale_price": {
-                        "type": "number",  # Cambiar de float a number
-                        "format": "float",  # Indicar que es un número con decimales
+                        "type": "number",
+                        "format": "float",
                         "description": "Sale price. Must be not null and a positive number."
                     }
                 },
@@ -39,13 +39,13 @@ create_price_swagger = {
                         "description": "Price id"
                     },
                     "cost_price": {
-                        "type": "number",  # Cambiar de float a number
-                        "format": "float",  # Indicar que es un número con decimales
+                        "type": "number",
+                        "format": "float",
                         "description": "Cost price."
                     },
                     "sale_price": {
-                        "type": "number",  # Cambiar de float a number
-                        "format": "float",  # Indicar que es un número con decimales
+                        "type": "number",
+                        "format": "float",
                         "description": "Sale price."
                     }
                 }
@@ -99,13 +99,13 @@ get_all_prices_swagger = {
                             "description": "Price id"
                         },
                         "cost_price": {
-                            "type": "number",  # Cambiar de float a number
-                            "format": "float",  # Indicar que es un número con decimales
+                            "type": "number",
+                            "format": "float",
                             "description": "Cost price."
                         },
                         "sale_price": {
-                            "type": "number",  # Cambiar de float a number
-                            "format": "float",  # Indicar que es un número con decimales
+                            "type": "number",
+                            "format": "float",
                             "description": "Sale price."
                         }
                     }
@@ -155,13 +155,13 @@ get_price_by_id_swagger = {
                         "description": "Price id"
                     },
                     "cost_price": {
-                        "type": "number",  # Cambiar de float a number
-                        "format": "float",  # Indicar que es un número con decimales
+                        "type": "number",
+                        "format": "float",
                         "description": "Cost price."
                     },
                     "sale_price": {
-                        "type": "number",  # Cambiar de float a number
-                        "format": "float",  # Indicar que es un número con decimales
+                        "type": "number",
+                        "format": "float",
                         "description": "Sale price."
                     }
                 }
@@ -169,6 +169,95 @@ get_price_by_id_swagger = {
         },
         404: {
             "description": "Price not found",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string",
+                        "description": "Error message"
+                    }
+                }
+            }
+        },
+        500: {
+            "description": "Internal error",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string",
+                        "description": "Error message"
+                    },
+                    "except": {
+                        "type": "string",
+                        "description": "Exception message"
+                    }
+                }
+            }
+        }
+    }
+}
+
+update_price_swagger = {
+    "tags": ["Price"],
+    "summary": "Update price",
+    "description": "Update price",
+    "requestBody": {
+        "required": True,
+        "content": {
+            "application/json": {
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "cost_price": {
+                            "type": "number",
+                            "format": "float",
+                            "description": "Cost price. Must be a positive number."
+                        },
+                        "sale_price": {
+                            "type": "number",
+                            "format": "float",
+                            "description": "Sale price. Must be a positive number."
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "parameters": [
+        {
+            "name": "price_id",
+            "in": "path",
+            "type": "integer",
+            "required": True,
+            "description": "Price ID"
+        }
+    ],
+    "responses": {
+        200: {
+            "description": "Price updated successfully",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "Price id"
+                    },
+                    "cost_price": {
+                        "type": "number",
+                        "format": "float",
+                        "description": "Cost price."
+                    },
+                    "sale_price": {
+                        "type": "number",
+                        "format": "float",
+                        "description": "Sale price."
+                    }
+                }
+            }
+        },
+        400: {
+            "description": "Invalid input",
             "schema": {
                 "type": "object",
                 "properties": {

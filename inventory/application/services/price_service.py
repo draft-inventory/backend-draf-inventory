@@ -18,3 +18,11 @@ class PriceService():
     @staticmethod
     def get_price_by_id(price_id):
         return PriceRepository.get_price_by_id(price_id)
+
+    @staticmethod
+    def update_price(price_id, cost_price, sale_price):
+        price = PriceRepository.get_price_by_id(price_id)
+        if not price:
+            return None
+
+        return PriceRepository.update_price(price, cost_price, sale_price)

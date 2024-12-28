@@ -8,9 +8,9 @@ class Quantity(db.Model):
     initial_quantity = db.Column(db.Integer, nullable=False)
     progress_quantity = db.Column(db.Integer, nullable=False)
 
-    # Relación con productos
-    products = db.relationship(
-        'Product', back_populates='quantity')
+    # Relación uno a uno con productos
+    product = db.relationship(
+        'Product', back_populates='quantity', uselist=False)
 
     # Relación con stocks (uno a uno)
     stocks = db.relationship(

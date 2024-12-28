@@ -193,7 +193,7 @@ def patch_product_controller(product_id, data):
             product.location_id = data['location_id']
 
         # Guardar cambios
-        updated_product = ProductService.update_product_instance(product)
+        updated_product = ProductService.patch_product(product)
         result = product_schema.dump(updated_product)
         return jsonify(result), 200
 

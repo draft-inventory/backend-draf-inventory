@@ -33,3 +33,9 @@ class PriceRepository():
             price.sale_price = fields['sale_price']
         db.session.commit()
         return price
+
+    @staticmethod
+    def delete_price(price):
+        db.session.delete(price)
+        db.session.commit()
+        return True

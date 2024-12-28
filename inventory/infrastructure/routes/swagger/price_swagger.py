@@ -375,3 +375,60 @@ patch_price_swagger = {
         }
     }
 }
+
+delete_price_swagger = {
+    "tags": ["Price"],
+    "summary": "Delete price",
+    "description": "Delete price",
+    "parameters": [
+        {
+            "name": "price_id",
+            "in": "path",
+            "type": "integer",
+            "required": True,
+            "description": "Price ID"
+        }
+    ],
+    "responses": {
+        200: {
+            "description": "Price deleted successfully",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Message"
+                    }
+                }
+            }
+        },
+        404: {
+            "description": "Price not found",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string",
+                        "description": "Error message"
+                    }
+                }
+            }
+        },
+        500: {
+            "description": "Internal error",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string",
+                        "description": "Error message"
+                    },
+                    "except": {
+                        "type": "string",
+                        "description": "Exception message"
+                    }
+                }
+            }
+        }
+    }
+}

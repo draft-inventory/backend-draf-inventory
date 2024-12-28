@@ -151,3 +151,16 @@ def patch_price(price_id):
         return jsonify({"error": str(ex)}), 400
     except Exception as ex:
         return jsonify({"error": "Internal error", "except": str(ex), "trace": traceback.format_exc()}), 500
+
+
+@price_urls.route('/<int:price_id>', methods=['DELETE'])
+@swag_from(delete_price_swagger)
+def delete_price(price_id):
+    try:
+        deleted = PriceService.delete_price(price_id)
+        if not deleted:
+            return jsonify({"error": "Price not found"}), 404
+        return jsonify({"message": "Price deleted successfully"}), 200
+
+    except Exception as ex:
+        return jsonify({"error": "Internal error", "except": str(ex), "trace": traceback.format_exc()}), 500

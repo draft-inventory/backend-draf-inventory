@@ -34,3 +34,10 @@ class PriceService():
             return None
 
         return PriceRepository.patch_price(price, fields)
+
+    @staticmethod
+    def delete_price(price_id):
+        price = PriceRepository.get_price_by_id(price_id)
+        if not price:
+            return False
+        return PriceRepository.delete_price(price)

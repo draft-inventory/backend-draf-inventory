@@ -14,3 +14,7 @@ class PriceService():
     @staticmethod
     def get_all_prices():
         return PriceRepository.get_all_prices()
+
+    @staticmethod
+    def get_price_by_id(price_id):
+        return PriceRepository.get_price_by_id(price_id)

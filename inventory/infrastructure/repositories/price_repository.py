@@ -13,3 +13,7 @@ class PriceRepository():
     @staticmethod
     def get_all_prices():
         return Price.query.all()
+
+    @staticmethod
+    def get_price_by_id(price_id):
+        return Price.query.get(price_id)

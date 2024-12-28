@@ -130,3 +130,70 @@ get_all_prices_swagger = {
         }
     }
 }
+
+get_price_by_id_swagger = {
+    "tags": ["Price"],
+    "summary": "Get price by ID",
+    "description": "Get price by ID",
+    "parameters": [
+        {
+            "name": "price_id",
+            "in": "path",
+            "type": "integer",
+            "required": True,
+            "description": "Price ID"
+        }
+    ],
+    "responses": {
+        200: {
+            "description": "Price found",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "Price id"
+                    },
+                    "cost_price": {
+                        "type": "number",  # Cambiar de float a number
+                        "format": "float",  # Indicar que es un número con decimales
+                        "description": "Cost price."
+                    },
+                    "sale_price": {
+                        "type": "number",  # Cambiar de float a number
+                        "format": "float",  # Indicar que es un número con decimales
+                        "description": "Sale price."
+                    }
+                }
+            }
+        },
+        404: {
+            "description": "Price not found",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string",
+                        "description": "Error message"
+                    }
+                }
+            }
+        },
+        500: {
+            "description": "Internal error",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string",
+                        "description": "Error message"
+                    },
+                    "except": {
+                        "type": "string",
+                        "description": "Exception message"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -72,7 +72,22 @@ def create_price():
 def get_all_prices():
     try:
         prices = PriceService.get_all_prices()
-        result = price_list_schema.dump(prices)  # Asegúrate de usar price_list_schema
+        # Asegúrate de usar price_list_schema
+        result = price_list_schema.dump(prices)
+        return jsonify(result), 200
+    except Exception as ex:
+        return jsonify({"error": "Internal error", "except": str(ex)}), 500
+
+
+@price_urls.route('/<int:price_id>', methods=['GET'])
+@swag_from(get_price_by_id_swagger)
+def get_price_by_id(price_id):
+    try:
+        price = PriceService.get_price_by_id(price_id)
+        if not price:
+            return jsonify({"error": "Price not found"}), 404
+
+        result = price_schema.dump(price)
         return jsonify(result), 200
     except Exception as ex:
         return jsonify({"error": "Internal error", "except": str(ex)}), 500

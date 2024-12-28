@@ -14,7 +14,7 @@ create_stock_swagger = {
                         "movement_type": {
                             "type": "string",
                             "description": "Type of movement (e.g., ENTRADA, SALIDA).",
-                            "example": "IN"
+                            "example": "ENTRADA"
                         },
                         "quantity_id": {
                             "type": "integer",
@@ -107,7 +107,7 @@ get_all_stocks_swagger = {
                                 },
                                 "movement_type": {
                                     "type": "string",
-                                    "description": "Type of movement (e.g., IN, OUT)."
+                                    "description": "Type of movement (e.g., ENTRADA, SAIDA)."
                                 },
                                 "date": {
                                     "type": "string",

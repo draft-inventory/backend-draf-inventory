@@ -12,7 +12,7 @@ class Quantity(db.Model):
     products = db.relationship(
         'Product', back_populates='quantity')
 
-    # Relación con stocks
+    # Relación con stocks (uno a uno)
     stocks = db.relationship(
         'Stock', back_populates='quantity', uselist=True)
 

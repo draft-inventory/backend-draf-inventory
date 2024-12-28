@@ -26,3 +26,11 @@ class PriceService():
             return None
 
         return PriceRepository.update_price(price, cost_price, sale_price)
+
+    @staticmethod
+    def patch_price(price_id, fields):
+        price = PriceRepository.get_price_by_id(price_id)
+        if not price:
+            return None
+
+        return PriceRepository.patch_price(price, fields)

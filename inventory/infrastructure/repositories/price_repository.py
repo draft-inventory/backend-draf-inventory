@@ -24,3 +24,12 @@ class PriceRepository():
         price.sale_price = sale_price
         db.session.commit()
         return price
+
+    @staticmethod
+    def patch_price(price, fields: dict):
+        if 'cost_price' in fields:
+            price.cost_price = fields['cost_price']
+        if 'sale_price' in fields:
+            price.sale_price = fields['sale_price']
+        db.session.commit()
+        return price

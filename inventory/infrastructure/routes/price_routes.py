@@ -133,3 +133,21 @@ def update_price(price_id):
         return jsonify({"error": str(ex)}), 400
     except Exception as ex:
         return jsonify({"error": "Internal error", "except": str(ex), "trace": traceback.format_exc()}), 500
+
+
+@price_urls.route('/<int:price_id>', methods=['PATCH'])
+@swag_from(patch_price_swagger)
+def patch_price(price_id):
+    try:
+        fields_to_update = request.get_json()
+        updated_price = PriceService.patch_price(price_id, fields_to_update)
+        if not updated_price:
+            return jsonify({"error": "Price not found"}), 404
+
+        result = price_schema.dump(updated_price)
+        return jsonify(result), 200
+
+    except ValueError as ex:
+        return jsonify({"error": str(ex)}), 400
+    except Exception as ex:
+        return jsonify({"error": "Internal error", "except": str(ex), "trace": traceback.format_exc()}), 500

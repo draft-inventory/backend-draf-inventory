@@ -1,6 +1,7 @@
 from ...domain.models.price import Price
 from common.db.db import db
 
+
 class PriceRepository():
     @staticmethod
     def create_price(cost_price, sale_price):
@@ -8,3 +9,7 @@ class PriceRepository():
         db.session.add(new_price)
         db.session.commit()
         return new_price
+
+    @staticmethod
+    def get_all_prices():
+        return Price.query.all()

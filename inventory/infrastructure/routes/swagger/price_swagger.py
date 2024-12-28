@@ -50,17 +50,67 @@ create_price_swagger = {
                     }
                 }
             },
-        400: {
-            "description": "Invalid input",
+            400: {
+                "description": "Invalid input",
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "error": {
+                            "type": "string",
+                            "description": "Error message"
+                        }
+                    }
+                },
+            },
+            500: {
+                "description": "Internal error",
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "error": {
+                            "type": "string",
+                            "description": "Error message"
+                        },
+                        "except": {
+                            "type": "string",
+                            "description": "Exception message"
+                        }
+                    }
+                },
+            }
+        }
+    }
+}
+
+get_all_prices_swagger = {
+    "tags": ["Price"],
+    "summary": "Get all prices",
+    "description": "Get all prices",
+    "responses": {
+        200: {
+            "description": "Prices found",
             "schema": {
-                "type": "object",
-                "properties": {
-                    "error": {
-                        "type": "string",
-                        "description": "Error message"
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "integer",
+                            "description": "Price id"
+                        },
+                        "cost_price": {
+                            "type": "number",  # Cambiar de float a number
+                            "format": "float",  # Indicar que es un número con decimales
+                            "description": "Cost price."
+                        },
+                        "sale_price": {
+                            "type": "number",  # Cambiar de float a number
+                            "format": "float",  # Indicar que es un número con decimales
+                            "description": "Sale price."
+                        }
                     }
                 }
-            },
+            }
         },
         500: {
             "description": "Internal error",
@@ -76,8 +126,7 @@ create_price_swagger = {
                         "description": "Exception message"
                     }
                 }
-            },
+            }
         }
     }
-}
 }

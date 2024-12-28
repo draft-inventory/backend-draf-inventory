@@ -12,7 +12,8 @@ category_urls = Blueprint('category_blueprint', __name__)
 
 
 # Regex para nombres válidos
-VALID_NAME_REGEX = r"^[A-Za-zÁÉÍÓÚÑáéíóúñ ]{2,15}$"
+VALID_NAME_REGEX = r"^[A-Za-zÁÉÍÓÚÑáéíóúñ ]{2,20}$"
+
 
 @category_urls.route('/create', methods=['POST'])
 @swag_from(create_category_swagger)
@@ -41,6 +42,7 @@ def create_category():
         return jsonify({"error": str(ex)}), 400
     except Exception as ex:
         return jsonify({"error": "Internal error", "except": str(ex)}), 500
+
 
 @category_urls.route('/<int:category_id>', methods=['GET'])
 @swag_from(get_category_by_id_swagger)
@@ -95,6 +97,25 @@ def update_category(category_id):
             return jsonify({"error": "Category not found"}), 404
 
         # Serialize schema
+        result = category_schema.dump(updated_category)
+        return jsonify(result), 200
+
+    except ValueError as ex:
+        return jsonify({"error": str(ex)}), 400
+    except Exception as ex:
+        return jsonify({"error": "Internal error", "except": str(ex)}), 500
+
+
+@category_urls.route('/<int:category_id>', methods=['PATCH'])
+@swag_from(patch_category_swagger)
+def patch_category(category_id):
+    try:
+        fields_to_update = request.get_json()
+        updated_category = CategoryService.patch_category(
+            category_id, fields_to_update)
+        if not updated_category:
+            return jsonify({"error": "Category not found"}), 404
+
         result = category_schema.dump(updated_category)
         return jsonify(result), 200
 

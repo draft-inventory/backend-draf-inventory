@@ -88,7 +88,6 @@ create_category_swagger = {
     }
 }
 
-
 # Get_category_by_id_swagger
 get_category_by_id_swagger = {
     "tags": ["Category"],
@@ -231,6 +230,83 @@ update_category_swagger = {
                         }
                     },
                     "required": ["name"]
+                }
+            }
+        }
+    },
+    "responses": {
+        200: {
+            "description": "Category updated successfully.",
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "integer",
+                                "description": "Category ID.",
+                                "example": 1
+                            },
+                            "name": {
+                                "type": "string",
+                                "description": "Updated category name.",
+                                "example": "Electronics"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        404: {
+            "description": "Category not found.",
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                                "type": "string",
+                                "description": "Error message.",
+                                "example": "Category not found."
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+# Patch_category_swagger
+patch_category_swagger = {
+    "tags": ["Category"],
+    "summary": "Patch a category",
+    "description": "Update a category with PATCH.",
+    "parameters": [
+        {
+            "name": "category_id",
+            "in": "path",
+            "required": True,
+            "description": "ID of the category to update.",
+            "schema": {
+                "type": "integer",
+                "example": 1
+            }
+        }
+    ],
+    "requestBody": {
+        "required": True,
+        "content": {
+            "application/json": {
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "description": "New name of the category.",
+                            "example": "Electronics"
+                        }
+                    }
                 }
             }
         }

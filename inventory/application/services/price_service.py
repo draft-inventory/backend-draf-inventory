@@ -1,5 +1,6 @@
 from ...infrastructure.repositories.price_repository import PriceRepository
 
+
 class PriceService():
     @staticmethod
     def create_price(cost_price, sale_price):
@@ -7,5 +8,36 @@ class PriceService():
             raise ValueError("Cost price can't be empity.")
         if not (sale_price):
             raise ValueError("Sale price can't be empity.")
-        
+
         return PriceRepository.create_price(cost_price, sale_price)
+
+    @staticmethod
+    def get_all_prices():
+        return PriceRepository.get_all_prices()
+
+    @staticmethod
+    def get_price_by_id(price_id):
+        return PriceRepository.get_price_by_id(price_id)
+
+    @staticmethod
+    def update_price(price_id, cost_price, sale_price):
+        price = PriceRepository.get_price_by_id(price_id)
+        if not price:
+            return None
+
+        return PriceRepository.update_price(price, cost_price, sale_price)
+
+    @staticmethod
+    def patch_price(price_id, fields):
+        price = PriceRepository.get_price_by_id(price_id)
+        if not price:
+            return None
+
+        return PriceRepository.patch_price(price, fields)
+
+    @staticmethod
+    def delete_price(price_id):
+        price = PriceRepository.get_price_by_id(price_id)
+        if not price:
+            return False
+        return PriceRepository.delete_price(price)

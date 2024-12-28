@@ -1,4 +1,3 @@
-# stock_controller.py
 from flask import jsonify
 from ...application.services.stock_service import StockService
 from ...application.services.quantity_service import QuantityService

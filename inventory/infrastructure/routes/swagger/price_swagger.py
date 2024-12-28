@@ -5,29 +5,28 @@ create_price_swagger = {
     "tags": ["Price"],
     "summary": "Create a new price",
     "description": "Create a new price",
-    "parameters": [
-        {
-            "name": "body",
-            "in": "body",
-            "required": True,
-            "schema": {
-                "type": "object",
-                "properties": {
-                    "cost_price": {
-                        "type": "number",
-                        "format": "float",
-                        "description": "Cost price. Must be not null and a positive number."
-                    },
-                    "sale_price": {
-                        "type": "number",
-                        "format": "float",
-                        "description": "Sale price. Must be not null and a positive number."
+    "requestBody": {
+        "required": True,
+        "content": {
+            "application/json": {
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "cost_price": {
+                            "type": "number",
+                            "format": "float",
+                            "description": "Cost price. Must be a positive number."
+                        },
+                        "sale_price": {
+                            "type": "number",
+                            "format": "float",
+                            "description": "Sale price. Must be a positive number."
+                        }
                     }
-                },
-                "required": ["cost_price", "sale_price"]
+                }
             }
         }
-    ],
+    },
     "responses": {
         201: {
             "description": "Price created successfully",
@@ -49,34 +48,34 @@ create_price_swagger = {
                         "description": "Sale price."
                     }
                 }
-            },
-            400: {
-                "description": "Invalid input",
-                "schema": {
-                    "type": "object",
-                    "properties": {
-                        "error": {
-                            "type": "string",
-                            "description": "Error message"
-                        }
+            }
+        },
+        400: {
+            "description": "Invalid input",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string",
+                        "description": "Error message"
                     }
-                },
-            },
-            500: {
-                "description": "Internal error",
-                "schema": {
-                    "type": "object",
-                    "properties": {
-                        "error": {
-                            "type": "string",
-                            "description": "Error message"
-                        },
-                        "except": {
-                            "type": "string",
-                            "description": "Exception message"
-                        }
+                }
+            }
+        },
+        500: {
+            "description": "Internal error",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string",
+                        "description": "Error message"
+                    },
+                    "except": {
+                        "type": "string",
+                        "description": "Exception message"
                     }
-                },
+                }
             }
         }
     }
